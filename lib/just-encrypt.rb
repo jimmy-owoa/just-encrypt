@@ -5,7 +5,7 @@ class JustEncrypt
   def self.decrypt(data, cipher_key = nil)
     cipher = OpenSSL::Cipher.new 'aes-256-cbc'
     cipher.decrypt
-    cipher.key = Rails.application.credentials.lets_encrypt[:secret]
+    cipher.key = Rails.application.credentials.just_encrypt[:secret]
     # Decryption Process
     unescaped = CGI.unescape(data) # Remove urlencode
     decoded = Base64.decode64(unescaped) # Decode from base64
@@ -19,7 +19,7 @@ class JustEncrypt
 
   def self.encrypt(raw_user_cod, cipher_key = nil)
     timestamp = Time.now.utc.to_i
-    secret = Rails.application.credentials.lets_encrypt[:secret]
+    secret = Rails.application.credentials.just_encrypt[:secret]
     cipher = OpenSSL::Cipher.new('aes-256-cbc')
 
     iv = cipher.random_iv
