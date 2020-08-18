@@ -33,7 +33,7 @@ For encrypt data just do:
 ```ruby 
 require 'just-encrypt'
 
-`JustEncrypt.encrypt('STRING_TO_ENCRYPT')
+JustEncrypt.encrypt('STRING_TO_ENCRYPT')
 ```
 
 # Decrypt data
@@ -41,5 +41,5 @@ require 'just-encrypt'
 ```ruby 
 require 'just-encrypt'
 
-`JustEncrypt.decrypt('STRING_TO_DECRYPT')
+JustEncrypt.decrypt('STRING_TO_DECRYPT')
 ```
