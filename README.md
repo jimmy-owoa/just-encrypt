@@ -1,6 +1,6 @@
 # Just Encrypt
 
-The simplest gem for encrypt and decrypt data, you only need to set a secret password to your credentials.
+The simplest gem to encrypt and decrypt data, you only need to set a secret password to your credentials.
 
 # Getting started
 JustEncrypt works with Rails 5.2 onwards. Add the following line to your Gemfile:
