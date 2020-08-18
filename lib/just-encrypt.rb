@@ -6,15 +6,14 @@ class JustEncrypt
     cipher = OpenSSL::Cipher.new 'aes-256-cbc'
     cipher.decrypt
     cipher.key = Rails.application.credentials.lets_encrypt[:secret]
-    # Proceso de desencriptación
-    unescaped = CGI.unescape(data) # Se le quita el urlencode
-    decoded = Base64.decode64(unescaped) # Se descodifica de base64
-    cipher.iv = decoded[0..15] # Se carga el IV. Este corresponde a los primeros 16 caracteres de la data recibida
-    decrypted = cipher.update(decoded[16..decoded.length - 1]) # Se hace el primer paso de desencriptación
-    decrypted << cipher.final # Se finaliza la desencriptación
-    # Se considera que esté dentro de 1 minuto la solicitud
+    # Decryption Process
+    unescaped = CGI.unescape(data) # Remove urlencode
+    decoded = Base64.decode64(unescaped) # Decode from base64
+    cipher.iv = decoded[0..15] # This corresponds to the first 16 characters of the received data
+    decrypted = cipher.update(decoded[16..decoded.length - 1]) # First step for decrypt
+    decrypted << cipher.final # Decryption finished
     timestamp = decrypted[-10..(decrypted.length - 1)].to_i
-    # Se retorna el dato del usuariodesencriptado
+    # Return decrypted data
     decrypted[0..(decrypted.length - 11)]
   end
 
