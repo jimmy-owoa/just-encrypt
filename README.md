@@ -11,7 +11,7 @@ Then run `bundle install`
 
 Next, you need to add a secret key into your credentials file, the key must be 32 bytes. You can generate one easily with OpenSSL:
 ```console
-$ openssl rand -hex 16
+$ openssl rand -hex 32
 ```
 
 Then edit your credentials:
