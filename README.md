@@ -28,8 +28,6 @@ just_encrypt:
   
 ## Encrypt data
 
-For encrypt data just do:
-
 ```ruby 
 require 'just-encrypt'
 
