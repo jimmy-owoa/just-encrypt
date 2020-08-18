@@ -21,19 +21,25 @@ $ EDITOR=vim rails credentials:edit
 
 And add the secret key generated with the next structure:
 
-`just_encrypt:
-  secret: YOUR_SECRET_KEY`
+```console
+just_encrypt:
+  secret: YOUR_SECRET_KEY
+```
   
 # Encrypt data
 
 For encrypt data just do:
 
-`require 'just-encrypt'
+```ruby 
+require 'just-encrypt'
 
-`JustEncrypt.encrypt('STRING_TO_ENCRYPT')`
+`JustEncrypt.encrypt('STRING_TO_ENCRYPT')
+```
 
 # Decrypt data
 
-`require 'just-encrypt'
+```ruby 
+require 'just-encrypt'
 
-`JustEncrypt.decrypt('STRING_TO_DECRYPT')`
+`JustEncrypt.decrypt('STRING_TO_DECRYPT')
+```
