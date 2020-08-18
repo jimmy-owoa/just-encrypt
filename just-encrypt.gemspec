@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name      = %q{just-encrypt}
-  s.version   = "0.0.3"
+  s.version   = "0.0.4"
   s.date      = %q{2020-08-18}
   s.summary   = %q{The simplest gem for encrypt data}
   s.author    = "Jeremías G."

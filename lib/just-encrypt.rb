@@ -1,36 +1,39 @@
 class JustEncrypt
   require 'base64'
   require 'openssl'
-
-  def self.decrypt(data, cipher_key = nil)
-    cipher = OpenSSL::Cipher.new 'aes-256-cbc'
+  
+  def self.decrypt(base64_encrypted_text)
+    # cipher for encrypting/decrypting
+    secret = Rails.application.credentials.just_encrypt[:secret]
+    key = Digest::SHA1.hexdigest(secret).slice(0..31)
+    encrypted_text = Base64.decode64(base64_encrypted_text)
+    # set cipher for decryption
+    cipher = OpenSSL::Cipher.new("aes-256-cbc")
     cipher.decrypt
-    cipher.key = Rails.application.credentials.just_encrypt[:secret]
-    # Decryption Process
-    unescaped = CGI.unescape(data) # Remove urlencode
-    decoded = Base64.decode64(unescaped) # Decode from base64
-    cipher.iv = decoded[0..15] # This corresponds to the first 16 characters of the received data
-    decrypted = cipher.update(decoded[16..decoded.length - 1]) # First step for decrypt
-    decrypted << cipher.final # Decryption finished
-    timestamp = decrypted[-10..(decrypted.length - 1)].to_i
-    # Return decrypted data
-    decrypted[0..(decrypted.length - 11)]
+    cipher.key = key
+    cipher.iv = encrypted_text[0..15]
+  
+    # decryption
+    decrypted = cipher.update(encrypted_text[16..encrypted_text.length-1])
+    decrypted << cipher.final
+    decrypted
   end
 
-  def self.encrypt(raw_user_cod, cipher_key = nil)
-    timestamp = Time.now.utc.to_i
+  def self.encrypt(text)
+    # cipher for encrypting/decrypting
     secret = Rails.application.credentials.just_encrypt[:secret]
-    cipher = OpenSSL::Cipher.new('aes-256-cbc')
-
-    iv = cipher.random_iv
+    key = Digest::SHA1.hexdigest(secret).slice(0..31)
+    # set cipher for encryption
+    cipher = OpenSSL::Cipher::AES256.new(:CBC)
     cipher.encrypt
-    cipher.key = secret
-
-    encrypted_data = cipher.update(raw_user_cod + timestamp.to_s)
-    encrypted_data << cipher.final
-    data = CGI.escape(Base64.strict_encode64(iv.to_s + encrypted_data))
-
-    data
+    cipher.key = key
+    iv = cipher.random_iv
+    cipher.iv = iv
+    
+    # encrypt the message
+    encrypted = cipher.update(text)
+    encrypted << cipher.final
+    Base64.encode64(iv + encrypted)
   end
 end
 
