@@ -6,8 +6,12 @@ Gem::Specification.new do |s|
   s.author    = "Jeremías G."
   s.email     = "jeremias@redvel.cl"
   s.homepage  = "https://github.com/jimmy-owoa/just-encrypt"
+  s.licenses  = ["MIT"]
   s.files     = [
-    "lib/just-encrypt.rb"
+    "lib/just-encrypt.rb",
+    "README.md",
+    "MIT-LICENSE"
   ]
   s.require_paths = ["lib"]
+  s.required_ruby_version = '>= 2.1.0'
 end
