@@ -5,7 +5,7 @@ The simplest gem for encrypt and decrypt data
 # Getting started
 JustEncrypt works with Rails 5.2 onwards. Add the following line to your Gemfile:
 ```ruby
-gem 'devise'
+gem 'just-encrypt'
 ```  
 Then run `bundle install`
 
